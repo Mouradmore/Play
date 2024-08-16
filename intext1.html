@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quiz-Game</title>
+<style>
+html {
+  box-sizing: border-box;
+  }
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  }
+html,
+body {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+body {
+    background: #a8c0ff;
+    color:white;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: points;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+section {
+    background: #a8c0ff;
+    background: -webkit-linear-gradient(to right, #3f2b96, #a8c0ff);
+    background: linear-gradient(to right, #3f2b96, #a8c0ff);
+    padding-top: 80px;
+    overflow-y: hidden;
+}
+main {
+    background: rgba(217, 214, 228, 0.12);
+    border-radius: 10px;
+    padding: 5px 20px 50px;
+    width: 95%;
+    max-width: 500px;
+    margin: 0 auto 214px;
+}
+.text-container {
+    text-align: center;
+}
+.quiz-options {
+    margin: 60px 0;
+}
+[type=radio] {
+    border: 0;
+    height: 0.0625rem;
+    width: 0.0625rem;
+    position: absolute;
+}
+label {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    background: rgba(255, 5, 5, 0.72);
+    margin-bottom: 15px;
+    padding: 6px 0;
+    position: relative;
+    width: 100%;
+    color: #000;
+}
+label:hover .alphabet {
+    background: #000;
+    color: #fff;
+}
+label .alphabet {
+    border-radius: 5px;
+    border: solid 1px #000;
+    padding: .4rem .5rem .4rem;
+    width: 2.3rem;
+    margin: 0 1.3rem 0 .7rem;
+    display: flex;
+    justify-content: center;
+    color: #000;
+}
+label .icon {
+    height: auto;
+    position: absolute;
+    left: 92%;
+    top: 12px;
+}
+label .jfdedgwfzexf4hjin {
+    width: 18px;
+}
+label .jdsjkefkefkefefexco {
+    width: 22px;
+}
+.jshdgdgwgdwfdfwdwjfdjwwdwdco:checked+label {
+    background: rgb(76, 245, 194);
+    font-weight: bold;
+    text-transform: uppercase;
+    -webkit-text-stroke: .6px #fff;
+}
+.jshdgdgwgdwfdfwdwjfdjwwdwdco:checked+label .alphabet {
+    background: #000000;
+    color: #FFF;
+}
+.jshdgdgwgdwfdfwdwjfdjwwdwdin:checked+label {
+    font-weight: bold;
+    text-transform: uppercase;
+    -webkit-text-stroke: .6px #fff;
+}
+.jshdgdgwgdwfdfwdwjfdjwwdwdin:checked+label .alphabet {
+    background: #000;
+    color: #fff;
+}
+.one-c:valid+label,
+.two-a:valid+label,
+.three-c:valid+label,
+.four-b:valid+label,
+.five-a:valid+label,
+.Six-b:valid+label,
+.Seven-a:valid+label,
+.Eight-c:valid+label,
+.Nine-b:valid+label,
+.Ten-c:valid+label,
+.eleven-a:valid+label,
+.twelve-a:valid+label,
+.Thirteen-c:valid+label,
+.Fourteen-b:valid+label,
+.Fifteen-c:valid+label,
+.Sixteen-a:valid+label,
+.Seventeen-b:valid+label,
+.Eighteen-a:valid+label,
+.Nineteen-c:valid+label,
+.Twenty-c:valid+label
+
+{
+    animation: flash 0.6s infinite;
+}
+@keyframes flash {
+    0% {
+        background-color: #4cf5c2;
+    }
+    49% {
+        background-color: #4cf5c2;
+    }
+    50% {
+        background-color: #000;
+    }
+    99% {
+        background-color: #000;
+    }
+    100% {
+        background-color: #4cf5c2;
+    }
+}
+input:invalid+label {
+    background: #fff;
+}
+input:invalid+label:hover {
+    background: linear-gradient(to right, #d8d9da 10%, #ffffff 80%);
+}
+input:valid+label {
+    color: #fff;
+    pointer-events: none
+}
+#btn {
+    border: 1px solid #000;
+    border-radius: 50px;
+    background: rgb(247, 206, 206);
+    color: #000;
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 57%;
+    margin: 0 auto;
+    outline: none;
+    padding: 11px 0;
+    text-align: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+#btn:hover {
+    background: rgba(255, 255, 255, 0.671);
+    color: rgba(0, 0, 0, 0.749);
+    border: 1px solid #000;
+}
+form:invalid #btn {
+    pointer-events: none;
+    background: rgba(248, 214, 214, 0.767);
+}
+.btn:hover {
+    background: #000;
+    color: #fff;
+}
+.score-counter {
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    width: 210px;
+    height: 9%;
+    background: rgba(0, 0, 0, 0.749);
+    border: 4px solid #000;
+    position: fixed;
+    top: 5px;
+    right: 10px;
+    box-shadow: inset 2px -2px 9px #020202, inset -2px 2px 9px #d2d2d2;
+}
+.score-text {
+    margin: 0 20px;
+}
+.score-counter::after {
+    content: counter(points) "/20";
+}
+.one-c:checked,
+.two-a:checked,
+.three-c:checked,
+.four-b:checked,
+.five-a:checked,
+.Six-b:checked,
+.Seven-a:checked,
+.Eight-c:checked,
+.Nine-b:checked,
+.Ten-c:checked, 
+.eleven-a:checked,
+.twelve-a:checked,
+.Thirteen-c:checked,
+.Fourteen-b:checked,
+.Fifteen-c:checked,
+.Sixteen-a:checked,
+.Seventeen-b:checked,
+.Eighteen-a:checked,
+.Nineteen-c:checked,
+.Twenty-c:checked{
+    counter-increment: points;
+}
+#game-over {
+    background: linear-gradient(rgb(28, 22, 49), rgba(18, 18, 25, 0.9)), repeating-linear-gradient(0, transparent, transparent 2px, black 3px, black 3px);
+    font-family: 'Bungee', cursive;
+    /* position: absolute; */
+    width: 100%;
+    height: 100vh;
+}
+.game-over-content {
+    display: grid;
+    justify-items: center;
+    width: 80%;
+    margin: 0 auto;
+    padding: 120px 0;
+}
+#game-over h1 {
+    background: url("https://res.cloudinary.com/dvhndpbun/image/upload/e_brightness:-20/v1588605696/01-01_web_designers_code_ld_img_dgytil.png");
+    -webkit-background-clip: text;
+    color: transparent;
+    background-size: contain;
+    font-size: 5rem;
+    line-height: 1.2;
+    margin: 0;
+    position: relative;
+}
+h1::before {
+    content: attr(data-heading);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, 0) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    mix-blend-mode: screen;
+    animation: shine 1s infinite;
+    background-size: 200%;
+    text-shadow: 2px 2px 10px rgba(#000, 0.2), -2px 2px 10px rgba(#000, 0.2), -2px -2px 10px rgba(#000, 0.2);
+}
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    49% {
+        opacity: 9;
+    }
+    50% {
+        opacity: .8;
+    }
+    99% {
+        opacity: .5;
+    }
+    100% {
+        opacity: .3;
+    }
+}
+@keyframes shine {
+    0% {
+        background-position: -100%;
+    }
+    100% {
+        background-position: 100%;
+    }
+}
+.over-text-cont {
+    text-align: center;
+}
+.over-text-cont h2 {
+    font-family: 'Sirin Stencil', cursive;
+}
+.over-text-cont h2::after {
+    content: counter(points) "0/200";
+    margin-left: 15px;
+}
+#refresh {
+    color: #fff;
+    position: relative;
+    height: 100vh;
+}
+.refresh-content {
+    display: grid;
+    font-size: 1.2rem;
+    place-items: center;
+    width: 70%;
+    line-height: 2;
+    margin: 0 auto;
+    text-align: center;
+}
+.refresh-content svg {
+    width: 50px;
+    height: auto;
+    animation: pulse 1s infinite;
+}
+@media (max-width: 420px) {
+    body {
+        font-size: .8rem;
+    }
+    main {
+        width: 92%;
+    }
+    section {
+        background: linear-gradient(to right, #3f2b96, #1f0961);
+    }
+    label {
+        font-size: .71rem;
+    }
+    label .alphabet {
+        margin: 0 .9rem 0 .7rem;
+    }
+    .jshdgdgwgdwfdfwdwjfdjwwdwdco:checked+label {
+        -webkit-text-stroke: .1px #fff;
+    }
+    label .jdsjkefkefkefefexco {
+        width: 16px;
+    }
+    label .jfdedgwfzexf4hjin {
+        width: 14px;
+    }
+    #game-over h1 {
+        font-size: 3rem;
+    }
+    .score-counter {
+        width: 120px;
+        height: 5%;
+        font-size: .7rem;
+    }
+    .score-text {
+        margin: 0 20px 0 0;
+    }
+    .over-text-cont h2 {
+        margin-bottom: 40px;
+    }
+    .over-text-cont #btn {
+        padding: 3px 0;
+    }
+    .refresh-content {
+        width: 90%;
+    }
+    .refresh-content {
+        display: grid;
+        font-size: .8rem;
+    }
+}
+@media (max-width: 325px) {
+    label {
+        font-size: .63rem;
+    }
+    label .alphabet {
+        margin: 0 .55rem 0 .7rem;
+    }
+    label .jdsjkefkefkefefexco {
+        width: 14px;
+    }
+    label .jfdedgwfzexf4hjin {
+        width: 12px;
+    }
+}
+img{
+  border-radius: 10px;
+}
+</style>
+<style>
+  #highScoresList {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 4rem;
+}
+
+#highScoresList .high-score {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+#highScoresList .high-score:hover {
+  -webkit-transform: scale(1.025);
+          transform: scale(1.025);
+}
+
+#highScoresList .high-score .pts {
+  color: #fdca40;
+  font-weight: 700;
+  font-size: 2.2rem;
+}
+/*# sourceMappingURL=highscores.css.map */
+.go {
+    border: 1px solid #000;
+    border-radius: 50px;
+    background: #fff;
+    color: #000;
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 57%;
+    margin: 0 auto;
+    outline: none;
+    padding: 11px 0;
+    text-align: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+.go:hover {
+    background: rgba(255, 255, 255, 0.671);
+    color: rgba(0, 0, 0, 0.749);
+    border: 1px solid #000;
+}
+.go{
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    width: 140px;
+    height: 5%;
+    background: #fff;
+    border: 4px solid #000;
+    position: fixed;
+    top: 5px;
+    left: 10px;
+    box-shadow: inset 2px -2px 9px #020202, inset -2px 2px 9px #d2d2d2;
+}
+.go-text {
+    margin: 0 20px;
+}
+
+</style>
+
+</head>
+<body>
+  
+  <!-- QUIZ ONE -->
+  
+<section class="section-1" id="section-1">
+<main>
+<div class="text-container">
+<bottom><img src="father.jpg" width="160" height="120"></bottom>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio one-a jshdgdgwgdwfdfwdwjfdjwwdwdco" id="one-a" name="yes-1" required>
+<label class="radio-label jsjwjdwjdwjdwco" for="one-a">
+<span class="alphabet">A</span>friend</label>
+<input type="radio" class="input-radio one-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="one-b" name="yes-1">
+<label class="radio-label jsjwjdwjdwjdwin" for="one-b">
+<span class="alphabet">B</span>heart</label>
+<input type="radio" class="input-radio one-c jshdgdgwgdwfdfwdwjfdjwwdwdin" id="one-c" name="yes-1">
+<label class="radio-label jsjwjdwjdwjdwin" for="one-c">
+<span class="alphabet">C</span>father</label>
+</div>
+<a id="btn" type="submit" onclick="window.location.href='#section-2'">Next</a>
+
+</form></main></section>
+
+  <!-- QUIZ TWO -->
+  
+<section class=" section-2" id="section-2">
+<main>
+<div class="text-container">
+<center><img src="hammer.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio two-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="two-a" name="no-2" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="two-a">
+<span class="alphabet">A</span> hammer
+</label>
+<input type="radio" class="input-radio two-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="two-b" name="no-2" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="two-b">
+<span class="alphabet">B</span> motorcycle
+</label>
+<input type="radio" class="input-radio two-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="two-c" name="no-2" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="two-c">
+<span class="alphabet">C</span>padlock
+</label>
+</div>
+<a id="btn" type="submit" onclick="window.location.href='#section-3'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ THREE -->
+  
+<section class="section-3" id="section-3">
+<main>
+<div class="text-container">
+<center><img src="onion.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio three-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="three-a" name="no-3" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="three-a">
+<span class="alphabet">A</span> penguin</label>
+<input type="radio" class="input-radio three-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="three-b" name="no-3" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="three-b">
+<span class="alphabet">B</span> pineapple</label>
+<input type="radio" class="input-radio three-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="three-c" name="no-3" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="three-c">
+<span class="alphabet">C</span> onion</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-4'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ FOUR -->
+  
+  <section class="section-4" id="section-4">
+<main>
+<div class="text-container">
+<center><img src="nose.jpg" width="160" height="120"></center>
+<h3></h3>
+<p><strong>أعرف الإجابة من خلال الصورة</strong></p>
+<p><b></b></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio four-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="four-a" name="no-4" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="four-a">
+<span class="alphabet">A</span>  shovel
+</label>
+<input type="radio" class="input-radio four-b jshdgdgwgdwfdfwdwjfdjwwdwdco" id="four-b" name="no-4" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="four-b">
+<span class="alphabet">B</span>  nose</label>
+<input type="radio" class="input-radio four-c jshdgdgwgdwfdfwdwjfdjwwdwdin" id="four-c" name="no-4" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="four-c">
+<span class="alphabet">C</span> squirrel
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-5'">Next</a>
+</form></main></section>
+  <!-- QUIZ Five -->
+<section class="section-5" id="section-5">
+<main>
+<div class="text-container">
+<center><img src="bear.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio five-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="five-a" name="no-5" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="five-a">
+<span class="alphabet">A</span> bear
+</label>
+<input type="radio" class="input-radio five-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="five-b" name="no-5" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="five-b">
+<span class="alphabet">B</span> panda
+</label>
+<input type="radio" class="input-radio five-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="five-c" name="no-5" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="five-c">
+<span class="alphabet">C</span> pineapple
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-6'">Next</a>
+</form></main></section>
+  <!-- QUIZ Six -->
+<section class="section-6" id="section-6">
+<main>
+<div class="text-container">
+<center><img src="Key.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Six-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Six-a" name="no-6" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Six-a">
+<span class="alphabet">A</span> nail 
+</label>
+<input type="radio" class="input-radio Six-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Six-b" name="no-6" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Six-b">
+<span class="alphabet">B</span> Key
+</label>
+<input type="radio" class="input-radio Six-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Six-c" name="no-6" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Six-c">
+<span class="alphabet">C</span> Knife
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-7'">Next</a>
+</form></main></section>
+  <!-- QUIZ Seven -->
+<section class="section-7" id="section-7">
+<main>
+<div class="text-container">
+<center><img src="kitchen.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Seven-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Seven-a" name="no-7" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Seven-a">
+<span class="alphabet">A</span> kitchen
+</label>
+<input type="radio" class="input-radio Seven-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Seven-b" name="no-7" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Seven-b">
+<span class="alphabet">B</span> necklace
+</label>
+<input type="radio" class="input-radio Seven-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Seven-c" name="no-7" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Seven-c">
+<span class="alphabet">C</span> padlock
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-8'">Next</a>
+</form></main></section>
+  <!-- QUIZ Eight -->
+<section class="section-8" id="section-8">
+<main>
+<div class="text-container">
+<center><img src="sheep.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Eight-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Eight-a" name="no-8" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Eight-a">
+<span class="alphabet">A</span> shovel 
+</label>
+<input type="radio" class="input-radio Eight-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Eight-b" name="no-8" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Eight-b">
+<span class="alphabet">B</span> shoes
+</label>
+<input type="radio" class="input-radio Eight-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Eight-c" name="no-8" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Eight-c">
+<span class="alphabet">C</span> sheep
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-9'">Next</a>
+</form></main></section>
+  <!-- QUIZ Nine -->
+<section class="section-9" id="section-9">
+<main>
+<div class="text-container">
+<center><img src="fork.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Nine-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Nine-a" name="no-9" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Nine-a">
+<span class="alphabet">A</span> Eye 
+</label>
+<input type="radio" class="input-radio Nine-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Nine-b" name="no-9" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Nine-b">
+<span class="alphabet">B</span> fork
+</label>
+<input type="radio" class="input-radio Nine-c jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Nine-c" name="no-9" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Nine-c">
+<span class="alphabet">C</span> carrot
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-10'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ Ten -->
+<section class="section-10" id="section-10">
+<main>
+<div class="text-container">
+<center><img src="heart.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Ten-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Ten-a" name="no-10" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Ten-a">
+<span class="alphabet">A</span> door
+</label>
+<input type="radio" class="input-radio Ten-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Ten-b" name="no-10" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Ten-b">
+<span class="alphabet">B</span> glove
+</label>
+<input type="radio" class="input-radio Ten-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Ten-c" name="no-10" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Ten-c">
+<span class="alphabet">C</span> heart
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-11'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ eleven -->
+<section class="section-11" id="section-11">
+<main>
+<div class="text-container">
+<center><img src="shoes.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio eleven-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="eleven-a" name="no-11" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="eleven-a">
+<span class="alphabet">A</span> shoes
+</label>
+<input type="radio" class="input-radio eleven-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="eleven-b" name="no-11" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="eleven-b">
+<span class="alphabet">B</span> short
+</label>
+<input type="radio" class="input-radio eleven-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="eleven-c" name="no-11" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="eleven-c">
+<span class="alphabet">C</span> shirt
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-12'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ twelve -->
+<section class="section-12" id="section-12">
+<main>
+<div class="text-container">
+<center><img src="spoon.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio twelve-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="twelve-a" name="no-12" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="twelve-a">
+<span class="alphabet">A</span> spoon
+</label>
+<input type="radio" class="input-radio twelve-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="twelve-b" name="no-12" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="twelve-b">
+<span class="alphabet">B</span> statue
+</label>
+<input type="radio" class="input-radio twelve-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="twelve-c" name="no-12" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="twelve-c">
+<span class="alphabet">C</span> teeth
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-13'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ Thirteen -->
+<section class="section-13" id="section-13">
+<main>
+<div class="text-container">
+<center><img src="glove.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Thirteen-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Thirteen-a" name="no-13" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Thirteen-a">
+<span class="alphabet">A</span> finger 
+</label>
+<input type="radio" class="input-radio Thirteen-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Thirteen-b" name="no-13" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Thirteen-b">
+<span class="alphabet">B</span> nails
+</label>
+<input type="radio" class="input-radio Thirteen-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Thirteen-c" name="no-13" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Thirteen-c">
+<span class="alphabet">C</span> glove
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-14'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ Fourteen -->
+<section class="section-14" id="section-14">
+<main>
+<div class="text-container">
+<center><img src="bathroom.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Fourteen-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Fourteen-a" name="no-14" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Fourteen-a">
+<span class="alphabet">A</span> beetroot 
+</label>
+<input type="radio" class="input-radio Fourteen-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Fourteen-b" name="no-14" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Fourteen-b">
+<span class="alphabet">B</span> bathroom
+</label>
+<input type="radio" class="input-radio Fourteen-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Fourteen-c" name="no-14" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Fourteen-c">
+<span class="alphabet">C</span> airplane
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-15'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ Fifteen -->
+<section class="section-15" id="section-15">
+<main>
+<div class="text-container">
+<center><img src="eggs.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Fifteen-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Fifteen-a" name="no-15" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Fifteen-a">
+<span class="alphabet">A</span> dog
+</label>
+<input type="radio" class="input-radio Fifteen-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Fifteen-b" name="no-15" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Fifteen-b">
+<span class="alphabet">B</span> Eye
+</label>
+<input type="radio" class="input-radio Fifteen-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Fifteen-c" name="no-15" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Fifteen-c">
+<span class="alphabet">C</span> eggs
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-16'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ Sixteen -->
+<section class="section-16" id="section-16">
+<main>
+<div class="text-container">
+<center><img src="Knife.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Sixteen-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Sixteen-a" name="no-16" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Sixteen-a">
+<span class="alphabet">A</span> Knife
+</label>
+<input type="radio" class="input-radio Sixteen-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Sixteen-b" name="no-16" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Sixteen-b">
+<span class="alphabet">B</span> milk
+</label>
+<input type="radio" class="input-radio Sixteen-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Sixteen-c" name="no-16" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Sixteen-c">
+<span class="alphabet">C</span> pail
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-17'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ Seventeen -->
+<section class="section-17" id="section-17">
+<main>
+<div class="text-container">
+<center><img src="room.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Seventeen-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Seventeen-a" name="no-17" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Seventeen-a">
+<span class="alphabet">A</span> zebra 
+</label>
+<input type="radio" class="input-radio Seventeen-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Seventeen-b" name="no-17" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Seventeen-b">
+<span class="alphabet">B</span> room
+</label>
+<input type="radio" class="input-radio Seventeen-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Seventeen-c" name="no-17" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Seventeen-c">
+<span class="alphabet">C</span> son
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-18'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ Eighteen -->
+<section class="section-18" id="section-18">
+<main>
+<div class="text-container">
+<center><img src="tiger.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Eighteen-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Eighteen-a" name="no-18" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Eighteen-a">
+<span class="alphabet">A</span> tiger
+</label>
+<input type="radio" class="input-radio Eighteen-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Eighteen-b" name="no-18" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Eighteen-b">
+<span class="alphabet">B</span> saw
+</label>
+<input type="radio" class="input-radio Eighteen-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Eighteen-c" name="no-18" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Eighteen-c">
+<span class="alphabet">C</span> rope
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-19'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ Nineteen -->
+<section class="section-19" id="section-19">
+<main>
+<div class="text-container">
+<center><img src="water.jpg" width="160" height="120"></center>
+<h3><strong>أعرف الإجابة من خلال الصورة</strong></h3>
+<p><b></b></p>
+<p></p>
+</div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Nineteen-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Nineteen-a" name="no-19" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Nineteen-a">
+<span class="alphabet">A</span> drinks 
+</label>
+<input type="radio" class="input-radio Nineteen-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Nineteen-b" name="no-19" required="">
+<label class="radio-label jsjwjdwjdwjdwin" for="Nineteen-b">
+<span class="alphabet">B</span> eggs
+</label>
+<input type="radio" class="input-radio Nineteen-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Nineteen-c" name="no-19" required="">
+<label class="radio-label jsjwjdwjdwjdwco" for="Nineteen-c">
+<span class="alphabet">C</span> water
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#section-20'">Next</a>
+</form></main></section>
+
+  <!-- QUIZ Twenty -->
+  
+  <section class="section-20" id="section-20">
+<main>
+<div class="text-container">
+<center><img src="door.jpg" width="160" height="120"></center>
+<h3></h3>
+<p><strong>أعرف الإجابة من خلال الصورة</strong></p>
+<p><b></b></p></div>
+<form>
+<div class="quiz-options">
+<input type="radio" class="input-radio Twenty-a jshdgdgwgdwfdfwdwjfdjwwdwdco" id="Twenty-a" name="yes-20" required>
+<label class="radio-label jsjwjdwjdwjdwco" for="Twenty-a">
+<span class="alphabet">A</span>  glove </label>
+<input type="radio" class="input-radio Twenty-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Twenty-b" name="yes-20">
+<label class="radio-label jsjwjdwjdwjdwin" for="Twenty-b">
+<span class="alphabet">B</span> hen
+                  </label>
+<input type="radio" class="input-radio Twenty-c jshdgdgwgdwfdfwdwjfdjwwdwdin" id="Twenty-c" name="yes-20">
+<label class="radio-label jsjwjdwjdwjdwin" for="Twenty-c">
+<span class="alphabet">C</span> door
+</label></div>
+<a id="btn" type="submit" onclick="window.location.href='#game-over'">Next</a>
+</form></main></section>
+
+      <!-- SCORE COUNTER -->
+      
+<!--div class="go">
+<a class="btn" href="go.html">Go Home</a></div-->
+<div class="score-counter">
+<p class="score-text">صحيح:</p>
+  </div>
+  
+  <!-- GAME OVER PAGE -->
+  
+<section id="game-over">
+<div class="game-over-content">
+<div class="over-text-cont">
+<h1 data-heading="Game Over">انتهت اللعبة</h1><br>
+<h2>مجموع النقاط:</h2>
+<a id="btn" type="submit" onclick="window.location.href='#refresh'">العب مرة أخرى</a>
+</div></div>
+</section>
+  <!-- REFRESH PAGE SECTION -->
+<section id="refresh">
+<div class="refresh-content">
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 341.12 341.33">
+<defs>
+<style>
+.cls-1 {fill: #fff;}
+</style>
+</defs>
+<title>الوسائط المتعددة 2</title>
+<path class="cls-1" d="M341.23,149.33V0L291.09,50.13A169.56,169.56,0,0,0,170.56,0C76.27,0,.11,76.37.11,170.67S76.27,341.33,170.56,341.33c79.47,0,146-54.4,164.91-128H291.09A127.94,127.94,0,1,1,170.56,42.67c35.31,0,67,14.72,90.13,37.86l-68.8,68.8Z" transform="translate(-0.11)" />
+</svg>
+<a href="intext1.html"><u>
+  <h2>تحديث / إعادة تحميل هذه الصفحة للمتابعة</h2>
+</u></a>
+</div></section>
+
+
+</body>
+</html>
